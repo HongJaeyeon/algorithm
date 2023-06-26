@@ -1,35 +1,31 @@
-import itertools
 import sys
+input = sys.stdin.readline
+n = int(input())
+ls = list(map(int, input().rstrip().split()))
+x = int(input())
 
-def main():
-    N = int(input())
-    arr = list(map(int, sys.stdin.readline().split()))
-    X = int(input())
+# 정렬 100000log(100000) = 5 * 100000
 
-    # for문  - 시간 초과
+ls.sort()
+s = 0
+e = n-1
+cnt = 0
+sumValue = ls[s] + ls[e]
+while s<e:
+    if sumValue < x:
+        sumValue -= ls[s]
+        s += 1
+        sumValue += ls[s]
 
-    # combi - 메모리 초과
-    # cnt = 0
-    # for a, b in list(itertools.combinations(arr, 2)):
-    #     if a + b == X : cnt += 1
+    elif sumValue > x:
+        sumValue -= ls[e]
+        e -= 1
+        sumValue += ls[e]
 
-    #투포인터 O(n) start와 end가 서로 끝으로 가는 상황이 최악
-    #정렬 후, 하나는 0 하나는 0orN-1 가르키는 포인터 선언
-    #해당 인덱스에 해당하는 값들의 합보다 작다면 / 크다면 / 같다면 조건 나누기
-
-    arr.sort()
-    start = 0
-    end = N-1
-    cnt = 0
-    while (start < end):
-        if arr[start] + arr[end] < X : start += 1
-        elif arr[start] + arr[end] == X :
-          cnt +=1
-          start += 1
-          end -= 1
-        else : end -= 1
-    print(cnt)
-
-
-if __name__ == '__main__':
-    main()
+    else:
+        cnt += 1
+        # e를 더 줄여봤자 해당 s에서 나올 수 있는 다른 경우는 없다 -> s를 늘린다
+        sumValue -= ls[s]
+        s += 1
+        sumValue += ls[s]
+print(cnt)
