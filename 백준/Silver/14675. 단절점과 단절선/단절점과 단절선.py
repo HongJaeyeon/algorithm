@@ -12,10 +12,5 @@ for _ in range(n-1):
 m = int(input())
 for _ in range(m):
     i, j = map(int, input().split())
-    if i == 1:
-        if len(adj[j]) == 1:
-            print("no")
-        else:
-            print("yes")
-    else:
-        print("yes")
+    print("no" if i == 1 and len(adj[j]) == 1 else "yes")
+
