@@ -1,0 +1,4 @@
+SELECT distinct O.user_id as USER_ID, O.product_id as PRODUCT_ID 
+FROM ONLINE_SALE AS O JOIN ONLINE_SALE AS B
+WHERE O.USER_ID = B.USER_ID and O.PRODUCT_ID = B.PRODUCT_ID and O.ONLINE_SALE_ID != B.ONLINE_SALE_ID
+Order by O.user_id, O.product_id DESC
