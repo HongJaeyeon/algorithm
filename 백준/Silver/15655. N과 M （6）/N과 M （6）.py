@@ -1,23 +1,18 @@
 import sys
-
 input = lambda: sys.stdin.readline().strip()
-
-n, r = map(int, input().split())
+N, M = map(int, input().split())
 ls = list(map(int, input().split()))
 ls.sort()
+selected = []
 
-# visited = [0 for _ in range(n)] #index를 다룬다
-selected = [0 for _ in range(r)]
-
-def comb(depth, start):
-    if depth == r:
-        for i in selected:
-            print(ls[i], end=" ")
-        print()
+def recur(idx, cnt):
+    if idx == N: #모든 들어 올 수 있는 수를 다보고
+        if cnt == M: #뽑은 자리수가 M과 같다면
+            print(*selected)
         return
+    selected.append(ls[idx])
+    recur(idx+1, cnt+1)
+    selected.pop()
+    recur(idx+1, cnt)
 
-    for i in range(start, n):
-        selected[depth] = i
-        comb(depth+1, i+1)
-
-comb(0, 0)
+recur(0, 0)
