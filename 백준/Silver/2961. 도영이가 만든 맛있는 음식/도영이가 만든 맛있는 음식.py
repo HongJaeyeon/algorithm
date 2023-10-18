@@ -1,23 +1,18 @@
 import sys
+lambda input: sys.stdin.readline().strip()
 
-n = int(input())
-input = lambda: sys.stdin.readline().strip().split()
-
-ls = [list(map(int, input())) for _ in range(n)]
+N = int(input())
+ls = [list(map(int, input().split())) for _ in range(N)]
 minValue = float('inf')
-# 부분 집합은 실시간으로 결과값을 만들어낼 수 있으면, 그걸 가지고 다니면 된다.
-def recur(depth, ssin, ssen):
+
+def recur(idx, cnt, sin, sson):
     global minValue
-    if depth == n:
-        if ssen == 0:
-            return
-        minValue = min(minValue, abs(ssin - ssen))
+    if idx == N:
+        if cnt >= 1:
+            minValue = min(minValue, abs(sin-sson))
         return
+    recur(idx + 1, cnt+1, sin*ls[idx][0], sson+ls[idx][1])
+    recur(idx + 1, cnt, sin, sson)
 
-    #안 뽑은 경우
-    recur(depth+1, ssin, ssen)
-    #뽑은 경우
-    recur(depth+1, ssin*ls[depth][0], ssen+ls[depth][1])
-
-recur(0,1,0)
+recur(0,0,1,0)
 print(minValue)
