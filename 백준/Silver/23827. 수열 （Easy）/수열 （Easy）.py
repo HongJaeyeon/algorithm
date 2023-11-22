@@ -4,8 +4,6 @@ lambda input : sys.stdin.readline().strip()
 n = int(input())
 ls = list(map(int, input().split()))
 ans = 0
-
-ls.sort()
 sumValue = sum(ls)
 
 for ele in ls:
