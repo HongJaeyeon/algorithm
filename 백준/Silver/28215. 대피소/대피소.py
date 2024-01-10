@@ -4,15 +4,20 @@ input = lambda: sys.stdin.readline().strip().split()
 N, K = map(int, input())
 ls = [list(map(int, input())) for _ in range(N)]
 
+if N == K:
+    print(0)
+    sys.exit()
+    
+
 minValue = float('inf')
 selected = [False for _ in range(N)]
 
 # 모든 조합 문제는 뽑고 안 뽑고로 바꿀 수 있다.
 def recur(idx, cnt):
     global ls, minValue
+
     # 가지치기 - 이미 K개를 다 뽑았을 때
     if cnt == K:
-
         notSelectedList = []
         selectedList = []
         for i in range(N):
@@ -29,7 +34,6 @@ def recur(idx, cnt):
                 minDist = min(minDist, abs(dr - cr) + abs(dc - cc))
             maxDist = max(maxDist, minDist)
 
-        # maxDist가 가장 작은 값이 정답
         minValue = min(minValue, maxDist)
         return
 
@@ -46,5 +50,4 @@ def recur(idx, cnt):
     recur(idx+1, cnt)
 
 recur(0, 0)
-
 print(minValue)
