@@ -1,16 +1,18 @@
 import sys
-input = lambda: sys.stdin.readline().strip()
-N, M = map(int, input().split())
-ls = list(map(int, input().split()))
-ls.sort()
-selected = [0 for _ in range(M)]
+input = lambda: sys.stdin.readline().strip().split()
 
+n, c = map(int, input())
+ls = list(map(int, input()))
+selected = [0 for _ in range(c)]
+ls.sort()
+
+# 중복 조합
 def recur(depth, start):
-    if depth == M:
+    if depth == c:
         print(*selected)
         return
 
-    for i in range(start, N):
+    for i in range(start, n):
         selected[depth] = ls[i]
         recur(depth+1, i)
 
