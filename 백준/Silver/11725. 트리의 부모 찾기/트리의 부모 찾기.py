@@ -1,26 +1,26 @@
 import sys
 sys.setrecursionlimit(10 ** 6)
+
+input = lambda: sys.stdin.readline().strip()
+
 n = int(input())
-adj = [[] for _ in range(n+1)]
-input = lambda: sys.stdin.readline().strip().split()
-visited = [False for _ in range(n+1)]
-parents = [0 for _ in range(n+1)]
+tree = [[] for _ in range(n+1)]
+preNodeInfo = [0 for _ in range(n+1)]
 
-def dfs(cur, pre):
-    visited[cur] = True
-    # print("cur", cur, "pre", pre)
-    parents[cur] = pre
-    for ele in adj[cur]:
-        if visited[ele]:
-            continue
-        dfs(ele, cur)
+for i in range(n-1):
+    a, b = map(int, input().split())
+    tree[a].append(b)
+    tree[b].append(a)
 
-for _ in range(n-1):
-    a, b = map(int, input())
-    adj[a].append(b)
-    adj[b].append(a)
+def dfs(preNode, curNode):
+    preNodeInfo[curNode] = preNode
+    for node in tree[curNode]:
+        if preNode != node:
+            dfs(curNode, node)
 
+dfs(-1, 1)
 
-dfs(1, 0)
-print("\n".join(map(str, parents[2:])))
-
+for ele in preNodeInfo:
+    if ele == -1 or ele == 0:
+        continue
+    print(ele)
