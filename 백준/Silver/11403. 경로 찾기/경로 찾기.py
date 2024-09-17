@@ -9,7 +9,6 @@ for i in range(n):
         if ls[i][j] == 1:
             dist[i][j] = 1
 
-
 for path in range(n):
     for i in range(n):
         for j in range(n):
